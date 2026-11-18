@@ -1,0 +1,16 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+*.swp
+
+# Node (dùng cho markdownlint khi chạy local)
+node_modules/
+
+# Secrets - không bao giờ commit
+.env
+*.pem
+*.key
