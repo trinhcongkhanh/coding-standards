@@ -12,7 +12,7 @@ jobs:
   markdown:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Lint Markdown
         uses: DavidAnson/markdownlint-cli2-action@v16
@@ -22,11 +22,18 @@ jobs:
   secrets:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
-      - name: Scan for secrets
-        uses: gitleaks/gitleaks-action@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # Chạy gitleaks CLI qua Docker image chính thức, quét toàn bộ lịch sử git.
+      # Không dùng gitleaks-action vì action này từng lỗi (exit code 1) ở lần push
+      # đầu tiên: nó quét khoảng "<root>^..HEAD" mà root commit không có commit cha.
+      - name: Scan for secrets (full history)
+        run: |
+          docker run --rm -v "${{ github.workspace }}:/repo" \
+            -e GIT_CONFIG_COUNT=1 \
+            -e GIT_CONFIG_KEY_0=safe.directory \
+            -e GIT_CONFIG_VALUE_0="*" \
+            ghcr.io/gitleaks/gitleaks:latest \
+            git /repo --redact --verbose --no-banner
