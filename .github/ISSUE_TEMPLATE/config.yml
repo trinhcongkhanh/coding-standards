@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 🔒 Báo lỗ hổng bảo mật
+    url: https://github.com/trinhcongkhanh/coding-standards/security/advisories/new
+    about: Vui lòng báo cáo riêng, không mở issue công khai

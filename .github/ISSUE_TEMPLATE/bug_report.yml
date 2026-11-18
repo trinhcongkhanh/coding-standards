@@ -1,0 +1,24 @@
+name: 🐛 Báo nội dung sai / lỗi thời
+description: Phát hiện thông tin sai, lỗi thời hoặc link hỏng
+labels: ["bug"]
+body:
+  - type: input
+    id: location
+    attributes:
+      label: Vị trí
+      description: File và mục bị lỗi
+      placeholder: "CODING_STANDARDS.md, mục 6. Security"
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Vấn đề
+      description: Nội dung hiện tại sai ở đâu?
+    validations:
+      required: true
+  - type: textarea
+    id: fix
+    attributes:
+      label: Đề xuất sửa
+      description: Nội dung đúng nên là gì? Có nguồn tham khảo không?
